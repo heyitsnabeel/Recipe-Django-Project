@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Recipe</title>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" >
+                    {% csrf_token %}
+                    <h2>Add Recipe</h2>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Recipe </label>
+                      <input type="text" class="form-control" name = "name" placeholder="Enter Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Description</label>
+                        <textarea class="form-control" rows="3" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Review</label>
+                        <textarea class="form-control" rows="3" name="review"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Recipe</button>
+                  </form>
+            </div>
+            <div class="col-md-2 justify-content-end">
+                <a href="/logout/" class="btn btn-primary">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table px-3">
+        <thead>
+          <tr>
+            <th scope="col">Sno.</th>
+            <th scope="col">Recipe_Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Review</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for recipe in recipies%}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{recipe.name}}</td>
+            <td>{{recipe.description}}</td>
+            <td>{{recipe.review}}</td>
+            <td>
+                <a href="/delete_recipe/{{recipe.id}}/" class="btn btn-danger">Delete</a>
+                <a href="/update_recipe/{{recipe.id}}/" class="btn btn-success">Update</a>
+            </td>
+          </tr>
+            {% endfor %}
+          
+        </tbody>
+      </table>
+    
+</body>
+</html>
